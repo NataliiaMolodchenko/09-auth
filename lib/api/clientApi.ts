@@ -1,12 +1,16 @@
 import { User } from "@/types/user";
 import { nextServer } from "./api"
 import { CreateNotePayload, FetchNotesResponse, Note, NoteTag } from "@/types/note";
+interface LoginPayload {
+  email: string;
+  password: string;
+}
 
 export async function fetchNotes(
-    page: number,
+    page: number, 
     perPage: number,
     search?: string,
-    tag?: NoteTag
+    tag?: NoteTag,
 ): Promise<FetchNotesResponse> {
     const res = await nextServer.get<FetchNotesResponse>(
         "/notes", {
@@ -20,8 +24,8 @@ export async function fetchNotes(
     return res.data;
 }
 
-export async function fetchNoteById(noteId:string):Promise<Note> {
-    const res = await nextServer.get<Note>(`/notes/${noteId}`);
+export async function fetchNoteById(id:string):Promise<Note> {
+    const res = await nextServer.get<Note>(`/notes/${id}`);
     return res.data;
 }
 
@@ -35,13 +39,13 @@ export async function deleteNote(noteId:string):Promise<Note> {
     return res.data.note;
 };
 
-export const register = async (data: { email: string, password: string }) => {
-    const res = await nextServer.post<User>("/auth/register", data);
+export const register = async (payload: LoginPayload): Promise<User> => {
+    const res = await nextServer.post<User>("/auth/register", payload);
     return res.data;
 };
 
-export const login = async (data: { email: string, password: string }) => {
-    const res = await nextServer.post<User>("/auth/login", data);
+export const login = async (payload: LoginPayload): Promise<User> => {
+    const res = await nextServer.post<User>("/auth/login", payload);
     return res.data;
 };
 
@@ -50,7 +54,7 @@ export const logout = async () => {
 };
 
 export const checkSession = async () => {
-    const res = await nextServer.get<User | null>("/auth/session");
+    const res = await nextServer.get<User>("/auth/session");
     return res.data;
 };
 
