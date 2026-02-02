@@ -1,12 +1,12 @@
 'use client';
 
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import css from "./SignInPage.module.css"
 import { useAuthStore } from "@/lib/store/authStore";
 import { FormEvent, useState } from "react";
 import { login } from "@/lib/api/clientApi";
 
-export const SignIn = () => {
+export default function SignIn(){
     const router = useRouter();
     const { setUser } = useAuthStore();
     const [error, setError] = useState("");

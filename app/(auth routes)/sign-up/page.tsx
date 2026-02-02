@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import css from "./SignUpPage.module.css"
 
-export const SignIn = () => {
+export default function SignIn (){
     const router = useRouter();
     const { setUser } = useAuthStore();
     const [error, setError] = useState("");
