@@ -18,7 +18,7 @@ export async function proxy(request: NextRequest) {
   if (!accessToken) {
     if (refreshToken) {
       const data = await checkSession();
-      const setCookie = data.headers['set-cookie'];
+      const setCookie = data.headers?.['set-cookie'];
 
       if (setCookie) {
         const cookieArray = Array.isArray(setCookie) ? setCookie : [setCookie];
