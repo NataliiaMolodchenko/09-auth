@@ -1,6 +1,6 @@
 'use client';
 
-import { login } from "@/lib/api/clientApi";
+import { register } from "@/lib/api/clientApi";
 import { useAuthStore } from "@/lib/store/authStore";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
@@ -20,7 +20,7 @@ export default function SignIn (){
             const password = formData.get("password") as string;
     
             try {
-                const user = await login({ email, password });
+                const user = await register({ email, password });
                 setUser(user);
                 router.push("/profile");
             } catch {

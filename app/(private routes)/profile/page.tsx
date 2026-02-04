@@ -1,8 +1,10 @@
 import { getMe } from "@/lib/api/serverApi";
 import css from "./ProfilePage.module.css";
 import Image from "next/image";
+import { Metadata } from "next";
+import Link from "next/link";
 
-export const metadata = {
+export const metadata: Metadata = {
     title: "Profile",
     description: "User profile page",
 };
@@ -15,11 +17,11 @@ async function ProfilePage() {
             <div className={css.profileCard}>
                 <div className={css.header}>
                     <h1 className={css.formTitle}>Profile Page</h1>
-                    <a
+                    <Link
                         href="/profile/edit"
                         className={css.editProfileButton}>
                         Edit Profile
-                    </a>
+                    </Link>
                 </div>
                 <div className={css.avatarWrapper}>
                     <Image

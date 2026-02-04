@@ -3,7 +3,7 @@ import { cookies } from 'next/headers';
 import { parse } from 'cookie';
 import { checkSession } from './lib/api/serverApi';
 
-const privateRoutes = ['/profile'];
+const privateRoutes = ['/profile', '/notes'];
 const publicRoutes = ['/sign-in', '/sign-up'];
 
 export async function proxy(request: NextRequest) {
@@ -34,7 +34,7 @@ export async function proxy(request: NextRequest) {
         }
         
           if (isPublicRoute) {
-          return NextResponse.redirect(new URL('/profile', request.url), {
+          return NextResponse.redirect(new URL('/', request.url), {
             headers: {
               Cookie: cookieStore.toString(),
             },
@@ -61,7 +61,7 @@ export async function proxy(request: NextRequest) {
   }
 
   if (isPublicRoute) {
-    return NextResponse.redirect(new URL('/profile', request.url));
+    return NextResponse.redirect(new URL('/', request.url));
   }
   if (isPrivateRoute) {
     return NextResponse.next();
