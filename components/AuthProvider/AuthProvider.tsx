@@ -13,15 +13,12 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     const pathname = usePathname();
     const router = useRouter();
 
-    useEffect(() => {
-        const checkAuth = async () => {
-            try {
-                await checkSession();
-
-                if (PrivateRoutes.some((r) => pathname.startsWith(r))) {
-          const user = await getMe();
-          setUser(user);
-        }
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        await checkSession();
+        const user = await getMe();
+        setUser(user);
       } catch {
         clearIsAuthenticated();
 
